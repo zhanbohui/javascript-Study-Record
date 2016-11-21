@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>throttle 函数节流</title>
+	<style type="text/css">
+		#container {
+			width: 400px;
+			height: 400px;
+			
+			margin: 0 auto;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script type="text/javascript">
+		/*function throttle(func,delay,duration) {
+			var timer = null; 
+			var t_start = +new Date();
+			delay = delay || 500;
+			duration = duration || 1000;
+			return function() {
+				var context = this,args = arguments,t_current = +new Date();
+				clearTimeout(timer);
+				if (t_current - t_start >= duration) {
+					console.log('ddd');
+					func.apply(context,args);
+					t_current = t_start;
+				} else {
+					timer = setTimeout(function() {
+						func.apply(context,args);
+					},delay);
+				}
+			}
+		}*/
+		function throttle(func,delay) {
+			var timer = null; 
+			delay = delay || 500;
+			return function() {
+				var context = this,args = arguments;
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					func.apply(context,args);
+				},delay);
+			}
+		}
+		function dosomething() {
+			console.log('dosomething');
+		}
+		document.getElementById('container').addEventListener('mousemove',throttle(dosomething));
+	</script>
+</body>
+</html>
